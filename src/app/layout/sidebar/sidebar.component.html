@@ -1,0 +1,9 @@
+<aside class="sidebar">
+  <h2>TaskFlow</h2>
+  <nav>
+    <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+    <a routerLink="/tasks" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">My Tasks</a>
+    <a routerLink="/tasks/new" routerLinkActive="active">Create Task</a>
+  </nav>
+  <a routerLink="/login" class="logout">Log out</a>
+</aside>
