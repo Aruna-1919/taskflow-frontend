@@ -139,3 +139,120 @@ TaskFlow is being developed as a full-stack application using Angular and Spring
 **Backend:** Spring Boot  
 **Database:** To be finalized
 
+
+
+## 📅 Day 2 – Authentication UI Development and Form Validation
+
+**Objective:** Develop the Login and Registration interfaces for TaskFlow using Angular Reactive Forms and implement client-side form validation.
+
+### 1. Login Component Development
+
+Created the Login component to provide an interface for existing users to access the TaskFlow application.
+
+**Implemented features:**
+- Developed the Login form using Angular.
+- Added email input field.
+- Added password input field.
+- Implemented required field validation.
+- Implemented email format validation.
+- Added form submission handling.
+- Configured navigation to the Registration page for new users.
+
+### 2. Registration Component Development
+
+Created the Registration component to allow new users to enter their details through a structured registration form.
+
+**Implemented form fields:**
+- Full Name
+- Email Address
+- Password
+- Re-enter Password
+
+**Implemented validations:**
+- Required field validation.
+- Email format validation.
+- Minimum password length validation.
+- Password and confirmation password matching validation.
+- Form submission validation to prevent invalid form submissions.
+
+### 3. Angular Reactive Forms
+
+Used Angular Reactive Forms to manage form controls and validation.
+
+Implemented:
+- `FormBuilder` for form creation.
+- `FormGroup` for managing form controls.
+- `Validators` for field-level validation.
+- Custom password matching validator for Registration.
+- Form validity checks before submission.
+- Validation error handling.
+
+### 4. Navigation and Routing
+
+Configured navigation between authentication pages.
+
+- Added navigation from Login to Registration.
+- Added navigation from Registration to Login.
+- Used Angular Router for page navigation.
+
+### 5. Authentication Workflow – Current Implementation
+
+Developed the initial frontend authentication interface with client-side validation.
+
+**Current functionality:**
+- Users can enter their login credentials.
+- New users can enter their registration details.
+- Form inputs are validated before submission.
+- Password confirmation is checked on the frontend.
+- Invalid forms are prevented from being submitted.
+
+**Current limitation:**
+
+User details are not yet stored in the database. Login and Registration are currently frontend implementations without backend authentication API integration.
+
+Backend authentication, user registration persistence, password hashing and authorization will be implemented in upcoming development milestones.
+
+### 6. Technologies Used
+
+- Angular
+- TypeScript
+- HTML5
+- SCSS
+- Angular Reactive Forms
+- Angular Router
+
+### 📂 Components Developed
+
+```text
+src/app/features/auth/
+├── login/
+│   ├── login.component.ts
+│   ├── login.component.html
+│   ├── login.component.scss
+│   └── login.component.spec.ts
+│
+└── register/
+    ├── register.component.ts
+    ├── register.component.html
+    ├── register.component.scss
+    └── register.component.spec.ts
+```
+
+### 🎯 Day 2 Key Achievements
+
+- [x] Created Login component.
+- [x] Created Registration component.
+- [x] Designed Login form.
+- [x] Designed Registration form.
+- [x] Implemented Reactive Forms.
+- [x] Added required field validations.
+- [x] Implemented email validation.
+- [x] Implemented password validation.
+- [x] Implemented password confirmation matching.
+- [x] Configured Login and Registration navigation.
+- [ ] Integrate Login API with Spring Boot.
+- [ ] Integrate Registration API with Spring Boot.
+- [ ] Save registered user details in PostgreSQL.
+- [ ] Implement secure authentication and authorization.
+
+**Day 2 Status:** Login and Registration UI development completed with client-side form validation. Backend authentication and database integration are pending.
