@@ -1,1 +1,63 @@
-<p>dashboard works!</p>
+<div class="page">
+  <header class="page-head">
+    <div>
+      <h1>Dashboard</h1>
+      <p>Welcome back, {{ userName }}</p>
+    </div>
+    <a routerLink="/tasks/new" class="btn-primary">+ Create Task</a>
+  </header>
+
+  <div class="stats">
+    <div class="stat">
+      <span class="label">Total</span>
+      <span class="value">{{ total() }}</span>
+    </div>
+    <div class="stat pending">
+      <span class="label">Pending</span>
+      <span class="value">{{ pending() }}</span>
+    </div>
+    <div class="stat progress">
+      <span class="label">In Progress</span>
+      <span class="value">{{ inProgress() }}</span>
+    </div>
+    <div class="stat completed">
+      <span class="label">Completed</span>
+      <span class="value">{{ completed() }}</span>
+    </div>
+    <div class="stat overdue">
+      <span class="label">Overdue</span>
+      <span class="value">{{ overdue() }}</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <h2>Recent tasks</h2>
+      <a routerLink="/tasks">View all tasks</a>
+    </div>
+
+    @if (loading()) {
+      <p class="muted pad">Loading...</p>
+    } @else if (error()) {
+      <p class="error pad">{{ error() }}</p>
+    } @else if (tasks().length === 0) {
+      <p class="muted pad">No tasks yet. Click "+ Create Task" to add your first one.</p>
+    } @else {
+      <table>
+        <thead>
+          <tr><th>Title</th><th>Status</th><th>Priority</th><th>Due date</th></tr>
+        </thead>
+        <tbody>
+          @for (t of recent(); track t.id) {
+            <tr>
+              <td>{{ t.title }}</td>
+              <td><span class="badge status-{{ statusKey(t.status) }}">{{ statusLabel(t.status) }}</span></td>
+              <td><span class="badge priority-{{ priorityKey(t.priority) }}">{{ priorityLabel(t.priority) }}</span></td>
+              <td class="muted">{{ t.dueDate | date: 'dd MMM yyyy' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </div>
+</div>

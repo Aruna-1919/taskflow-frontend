@@ -1,36 +1,48 @@
-<div class="login-container">
-  <div class="login-card">
-    <div class="login-header">
-      <h2>TaskFlow</h2>
-      <p>Sign in to manage your tasks</p>
+<div class="auth-page">
+  <section class="auth-brand">
+    <h1>TaskFlow</h1>
+    <p>Plan your work, track progress and never miss a deadline.</p>
+    <ul>
+      <li>Organise tasks by status, priority and category</li>
+      <li>See what is pending and overdue at a glance</li>
+      <li>Your tasks stay private to your account</li>
+    </ul>
+  </section>
+
+  <section class="auth-panel">
+    <div class="auth-card">
+      <h2>Welcome back</h2>
+      <p class="sub">Log in to continue to your tasks.</p>
+
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" type="email" formControlName="email" placeholder="you@example.com"
+                 [class.invalid]="form.controls.email.touched && form.controls.email.invalid" />
+          @if (form.controls.email.touched && form.controls.email.invalid) {
+            <span class="field-error">Enter a valid email</span>
+          }
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" type="password" formControlName="password" placeholder="Your password"
+                 [class.invalid]="form.controls.password.touched && form.controls.password.invalid" />
+          @if (form.controls.password.touched && form.controls.password.invalid) {
+            <span class="field-error">Password is required</span>
+          }
+        </div>
+
+        @if (error()) {
+          <div class="alert">{{ error() }}</div>
+        }
+
+        <button type="submit" class="btn-primary" [disabled]="loading()">
+          {{ loading() ? 'Logging in...' : 'Log in' }}
+        </button>
+      </form>
+
+      <p class="switch">Don't have an account? <a routerLink="/register">Register</a></p>
     </div>
-
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input 
-          id="email" 
-          type="email" 
-          formControlName="email" 
-          placeholder="you@example.com" 
-        />
-      </div>
-
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input 
-          id="password" 
-          type="password" 
-          formControlName="password" 
-          placeholder="Password" 
-        />
-      </div>
-
-      <button type="submit" class="btn-submit">Log in</button>
-    </form>
-
-    <div class="login-footer">
-      <p>New here? <a  (click)="onRegister()">Create an account</a></p>
-    </div>
-  </div>
+  </section>
 </div>

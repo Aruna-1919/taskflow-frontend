@@ -1,9 +1,28 @@
 <aside class="sidebar">
-  <h2>TaskFlow</h2>
-  <nav>
-    <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
-    <a routerLink="/tasks" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">My Tasks</a>
-    <a routerLink="/tasks/new" routerLinkActive="active">Create Task</a>
+  <div class="brand">TaskFlow</div>
+
+  <nav class="nav">
+    <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      Dashboard
+    </a>
+    <a routerLink="/tasks" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      My Tasks
+    </a>
+    <a routerLink="/tasks/new" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      Create Task
+    </a>
   </nav>
-  <a routerLink="/login" class="logout">Log out</a>
+
+  <div class="bottom">
+    @if (user) {
+      <div class="user">
+        <span class="avatar">{{ initial }}</span>
+        <div class="who">
+          <strong>{{ user.name }}</strong>
+          <small>{{ user.email }}</small>
+        </div>
+      </div>
+    }
+    <button type="button" class="logout" (click)="logout()">Log out</button>
+  </div>
 </aside>

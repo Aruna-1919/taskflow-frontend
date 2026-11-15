@@ -1,69 +1,57 @@
+<div class="auth-page">
+  <section class="auth-brand">
+    <h1>TaskFlow</h1>
+    <p>Create your free account and start organising your tasks in minutes.</p>
+    <ul>
+      <li>Simple, fast and distraction free</li>
+      <li>Filter, search and sort your tasks</li>
+      <li>Secure login with encrypted passwords</li>
+    </ul>
+  </section>
 
-<div class="register-container">
-  <div class="register-card">
+  <section class="auth-panel">
+    <div class="auth-card">
+      <h2>Create account</h2>
+      <p class="sub">It only takes a minute.</p>
 
-    <h2>Create Account</h2>
-    <p class="subtitle">Join TaskFlow and start managing your tasks.</p>
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="field">
+          <label for="name">Full name</label>
+          <input id="name" type="text" formControlName="name" placeholder="Your name"
+                 [class.invalid]="form.controls.name.touched && form.controls.name.invalid" />
+          @if (form.controls.name.touched && form.controls.name.invalid) {
+            <span class="field-error">Name is required</span>
+          }
+        </div>
 
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" type="email" formControlName="email" placeholder="you@example.com"
+                 [class.invalid]="form.controls.email.touched && form.controls.email.invalid" />
+          @if (form.controls.email.touched && form.controls.email.invalid) {
+            <span class="field-error">Enter a valid email</span>
+          }
+        </div>
 
-      <!-- Name -->
-      <div class="form-group">
-        <label>Full Name</label>
-        <input
-          type="text"
-          formControlName="name"
-          placeholder="Enter your full name"
-        />
-      </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" type="password" formControlName="password" placeholder="At least 8 characters"
+                 [class.invalid]="form.controls.password.touched && form.controls.password.invalid" />
+          @if (form.controls.password.touched && form.controls.password.invalid) {
+            <span class="field-error">Password must be at least 8 characters</span>
+          }
+        </div>
 
-      <!-- Email -->
-      <div class="form-group">
-        <label>Email Address</label>
-        <input
-          type="email"
-          formControlName="email"
-          placeholder="Enter your email"
-        />
-      </div>
+        @if (error()) {
+          <div class="alert">{{ error() }}</div>
+        }
 
-      <!-- Password -->
-      <div class="form-group">
-        <label>Password</label>
-        <input
-          type="password"
-          formControlName="password"
-          placeholder="Create a password"
-        />
-      </div>
+        <button type="submit" class="btn-primary" [disabled]="loading()">
+          {{ loading() ? 'Creating account...' : 'Create account' }}
+        </button>
+      </form>
 
-      <!-- Confirm Password -->
-      <div class="form-group">
-        <label>Re-enter Password</label>
-        <input
-          type="password"
-          formControlName="confirmPassword"
-          placeholder="Confirm your password"
-        />
-
-        <small
-          class="error"
-          *ngIf="registerForm.hasError('passwordMismatch')
-          && registerForm.get('confirmPassword')?.touched">
-          Passwords do not match.
-        </small>
-      </div>
-
-      <button type="submit" [disabled]="registerForm.invalid">
-        Create Account
-      </button>
-
-    </form>
-
-    <div class="login-link">
-      Already have an account?
-      <a routerLink="/login">Sign in</a>
+      <p class="switch">Already have an account? <a routerLink="/login">Log in</a></p>
     </div>
-
-  </div>
+  </section>
 </div>
