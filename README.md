@@ -473,3 +473,42 @@ The guard is placed on the parent layout route, so every child route is protecte
 - Move filtering, sorting and pagination to the server.
 - Unit tests for the auth service, interceptor and guards.
 - Deployment setup.
+
+
+# Day 4 – Frontend: Logout, Session Handling and Error States
+
+**Date:** 16 Nov 2026 | **Focus:** fix auth-related bugs and make failures visible to the user
+
+## Summary
+
+Fixed the sidebar logout, added automatic handling of expired sessions, and added loading and error states so API failures no longer leave a blank screen.
+
+## Changes Made
+
+- **Sidebar Log out fixed:** clears the token and user info, navigates to `/login`, and the route guard now blocks protected pages afterwards
+- **401 handling in the HTTP interceptor:** an expired or invalid token logs the user out and redirects to login
+- **Loading and error states** on the dashboard and login pages
+- Verified the frontend works with the fixed backend endpoints (get, update, delete by id)
+
+## How It Works
+
+1. The auth interceptor attaches `Authorization: Bearer <token>` to every request.
+2. If the API responds with **401**, the interceptor clears the session and sends the user to `/login`.
+3. Logging out removes the stored token and user data, so the guard rejects protected routes.
+4. Components show a loading indicator while a request is in flight and a readable message when it fails (the backend now returns `{ "error": "..." }`).
+
+## How to Test
+
+1. Log in and open the dashboard.
+2. Click **Log out**, then press the browser back button. You should land on `/login`.
+3. Log in again, delete the token from browser storage and reload a protected page. You should be redirected to login.
+4. Stop the backend and reload the dashboard. An error message should appear instead of a blank page.
+5. Log in as a second user and confirm you only see your own tasks.
+
+## What I Learned
+
+- HTTP interceptors are the right place for cross-cutting concerns like auth headers and 401 handling.
+- Guards only protect navigation. Always clear the session fully on logout.
+- RxJS `catchError` and `finalize` make loading and error handling clean.
+- Consistent backend error JSON makes frontend error handling much simpler.
+

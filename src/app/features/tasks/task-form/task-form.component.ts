@@ -81,6 +81,7 @@ export class TaskFormComponent implements OnInit {
 
   submit(): void {
     if (this.form.invalid) {
+      
       this.form.markAllAsTouched();
       return;
     }
