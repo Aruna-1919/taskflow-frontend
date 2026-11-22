@@ -512,3 +512,50 @@ Fixed the sidebar logout, added automatic handling of expired sessions, and adde
 - RxJS `catchError` and `finalize` make loading and error handling clean.
 - Consistent backend error JSON makes frontend error handling much simpler.
 
+
+
+# TaskFlow Frontend: Deployment
+
+Angular app deployed on **Netlify**, calling the Spring Boot API hosted on Render.
+
+- Live app: https://taskfloooow.netlify.app
+- API: https://taskflow-backend-dar5.onrender.com
+
+## How I deployed it
+
+### 1. Point the app at the live API
+In the production `src/environments/environment.ts`:
+
+```ts
+export const environment = {
+  production: true,
+  apiUrl: 'https://taskflow-backend-dar5.onrender.com'
+};
+```
+
+### 2. Add the routing fallback
+Created a `_redirects` file so refreshing on routes like `/dashboard` doesn't return a 404:
+
+```
+/*  /index.html  200
+```
+
+### 3. Check the build locally
+Ran `ng build` to confirm it completes without errors.
+
+### 4. Push to GitHub
+Committed the code. `dist/` and `node_modules/` are git-ignored, because Netlify builds the app itself.
+
+### 5. Deploy on Netlify
+1. Netlify, **Add new site**, **Import an existing project**, and selected this repository.
+2. Build command: `ng build`
+3. Publish directory: `dist/<project-name>/browser`
+4. Clicked **Deploy** and received the live URL.
+
+### 6. Allow the site in the backend
+Copied the Netlify URL into the `CORS_ALLOWED_ORIGINS` variable on Render, then waited for the backend to redeploy.
+
+### 7. Test the live site
+Registered, logged in, created, edited and deleted tasks, and refreshed on a route to confirm the fallback works.
+
+> The backend runs on a free Render instance that sleeps when idle, so the first request can take up to a minute.
